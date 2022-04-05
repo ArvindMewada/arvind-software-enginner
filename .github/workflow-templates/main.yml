@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checkout Repository
-      - uses: actions/checkout@v1
+      - uses: actions/arvind-software-enginner
 
       # Install Flutter command
       - uses: subosito/flutter-action@v1
@@ -25,7 +25,7 @@ jobs:
       - name: Deploy Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting:web-johannesmilke
+          args: deploy --only hosting:arvind-portfolio-c4a5b
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_PATH: ./
