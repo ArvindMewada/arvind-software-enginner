@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
 
     steps:
       - uses: actions/checkout@v3
@@ -34,6 +34,23 @@ jobs:
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: dart analyze
+
+      # Build Website
+      - name: Build Website
+        run: |
+          flutter config --enable-web
+          flutter pub get
+          flutter build web --release
+        working-directory: ./
+
+      # Deploy Firebase Hosting
+      - name: Deploy Firebase Hosting
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:arvind-portfolio-c4a5b
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: ./
 
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
